@@ -37,6 +37,7 @@ export interface SearchParams {
   specificDate?: string;
   budget?: "free" | "low" | "medium" | "high";
   activityTypes: string[];
+  additionalContext?: string;
 }
 
 // Types pour les filtres

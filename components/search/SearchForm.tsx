@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { Search, Loader2 } from "lucide-react";
 
 interface SearchFormProps {
@@ -30,6 +31,7 @@ export function SearchForm({ onSearch, isLoading }: SearchFormProps) {
   const [specificDate, setSpecificDate] = useState<string>();
   const [budget, setBudget] = useState<BudgetType>("medium");
   const [activityTypes, setActivityTypes] = useState<string[]>([]);
+  const [additionalContext, setAdditionalContext] = useState<string>("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,6 +49,7 @@ export function SearchForm({ onSearch, isLoading }: SearchFormProps) {
       specificDate: dateType === "specific" ? specificDate : undefined,
       budget,
       activityTypes,
+      additionalContext: additionalContext.trim() || undefined,
     };
 
     onSearch(params);
@@ -87,6 +90,17 @@ export function SearchForm({ onSearch, isLoading }: SearchFormProps) {
           value={activityTypes}
           onChange={setActivityTypes}
         />
+
+        <div className="space-y-2">
+          <Label htmlFor="additionalContext">Précisions (optionnel)</Label>
+          <Textarea
+            id="additionalContext"
+            placeholder="Ex: activité accessible PMR, proche du métro, avec parking, adapté aux débutants..."
+            value={additionalContext}
+            onChange={(e) => setAdditionalContext(e.target.value)}
+            rows={3}
+          />
+        </div>
 
         <Button
           type="submit"
